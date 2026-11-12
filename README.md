@@ -6,16 +6,16 @@ Install **zel**, the Zellij documentation and product website CLI by **Shebka**:
 brew install mylife-inc/tap/zel
 ```
 
-This tap currently supplies **0.2.0-rc.4**, a development preview. It supports
+This tap currently supplies **0.2.0-rc.5**, a development preview. It supports
 Apple Silicon and Intel Macs, and ARM64 and x86-64 Linux with glibc. The formula
-uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.4).
+uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.5).
 Zellij is the website engine; it is unrelated to the terminal multiplexer with
 the same name. `mylife-inc` is Shebka's existing GitHub account.
 
 ## Create a portable documentation site
 
 ```sh
-zel new portable my-docs
+zel create my-docs
 zel build my-docs
 ```
 
@@ -23,7 +23,12 @@ Edit Markdown in `my-docs/content/` and configure the site in `my-docs/zel.yaml`
 Open `my-docs/site/index.html` directly, or use `zel serve my-docs` for an HTTP
 preview. Portable builds do not need Docker or Node.js. Hosted builds require a
 supported container runtime and default to the engine image matching the CLI
-version (`ghcr.io/mylife-inc/zellij-base:0.2.0-rc.4`).
+version (`ghcr.io/mylife-inc/zellij-base:0.2.0-rc.5`).
+
+`zel templates` lists the bundled, versioned starters. For a reading-oriented
+book, use `zel create my-book -t book-classic`. For a hosted product landing
+page, use `zel create my-site -t product-studio`. Creation works offline and
+protects existing files. Book PDF/LaTeX publishing is still planned.
 
 The formula installs Bash, Zsh and Fish completions. Shell setup follows
 [Homebrew's completion instructions](https://docs.brew.sh/Shell-Completion).
