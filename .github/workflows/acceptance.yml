@@ -1,0 +1,68 @@
+name: Public Homebrew acceptance
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: homebrew-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install:
+    name: Install, upgrade and uninstall (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel, ubuntu-latest, ubuntu-24.04-arm]
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
+      HOMEBREW_NO_ANALYTICS: 1
+    steps:
+      # This action checks out the tested commit as the tap on the runner.
+      - uses: Homebrew/actions/setup-homebrew@1f8e202ffddf94def7f42f6fa3a482e821489f9c # 2026.07.10.1
+        with:
+          stable: true
+      - name: Install the public archive and verify the formula
+        shell: bash
+        run: |
+          set -euo pipefail
+          brew install mylife-inc/tap/zel
+          prefix="$(brew --prefix mylife-inc/tap/zel)"
+          test "$(cat "$prefix/share/zel/installation-manager")" = homebrew
+          for file in etc/bash_completion.d/zel share/zsh/site-functions/_zel share/fish/vendor_completions.d/zel.fish; do
+            test -s "$prefix/$file"
+          done
+          brew test mylife-inc/tap/zel
+      - name: Exercise a formula revision upgrade
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PYTHON'
+          from pathlib import Path
+          p = Path('Formula/zel.rb')
+          text = p.read_text()
+          assert '  revision ' not in text
+          lines = text.splitlines(keepends=True)
+          index = next(i for i, line in enumerate(lines) if line.startswith('  version "'))
+          lines.insert(index + 1, '  revision 1\n')
+          p.write_text(''.join(lines))
+          PYTHON
+          brew upgrade mylife-inc/tap/zel
+          brew list --versions mylife-inc/tap/zel | grep -E '_1($| )'
+          brew test mylife-inc/tap/zel
+      - name: Uninstall
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          brew uninstall --force mylife-inc/tap/zel
+          test ! -e "$(brew --prefix)/bin/zel"

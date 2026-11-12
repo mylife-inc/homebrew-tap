@@ -1,0 +1,66 @@
+# Shebka Homebrew tap
+
+Install **zel**, the Zellij documentation and product website CLI by **Shebka**:
+
+```sh
+brew install mylife-inc/tap/zel
+```
+
+This tap currently supplies **0.2.0-rc.4**, a development preview. It supports
+Apple Silicon and Intel Macs, and ARM64 and x86-64 Linux with glibc. The formula
+uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.4).
+Zellij is the website engine; it is unrelated to the terminal multiplexer with
+the same name. `mylife-inc` is Shebka's existing GitHub account.
+
+## Create a portable documentation site
+
+```sh
+zel new portable my-docs
+zel build my-docs
+```
+
+Edit Markdown in `my-docs/content/` and configure the site in `my-docs/zel.yaml`.
+Open `my-docs/site/index.html` directly, or use `zel serve my-docs` for an HTTP
+preview. Portable builds do not need Docker or Node.js. Hosted builds require a
+supported container runtime and default to the engine image matching the CLI
+version (`ghcr.io/mylife-inc/zellij-base:0.2.0-rc.4`).
+
+The formula installs Bash, Zsh and Fish completions. Shell setup follows
+[Homebrew's completion instructions](https://docs.brew.sh/Shell-Completion).
+Run `zel --help` for commands, and `zel explain` for the embedded content model.
+
+## Update or remove
+
+```sh
+brew update
+brew upgrade mylife-inc/tap/zel
+brew uninstall zel
+```
+
+Homebrew owns this installation. `zel upgrade` explains how to update through
+Homebrew and does not replace Homebrew's binary. To verify an installation:
+
+```sh
+brew test mylife-inc/tap/zel
+```
+
+During pre-1.0 development, this tap tracks the newest verified preview and old
+Zellij distribution artifacts may be retired. Do not depend on old preview
+URLs or expect downgrades to remain available. Version 1.0 will follow the
+agreed product-completion and acceptance gates.
+
+## Maintainers
+
+The formula is generated in [mylife-inc/Zellij](https://github.com/mylife-inc/Zellij)
+with `scripts/homebrew-formula.mjs` from a release's verified `SHA256SUMS`.
+Each release also attaches the generated `zel.rb`. After native release
+acceptance succeeds, copy that exact formula to `Formula/zel.rb`, update this
+README's version, and run this repository's four-platform acceptance workflow.
+Do not substitute unchecked checksums or mutable download URLs.
+
+The workflow installs the public artifact, checks completions and ownership,
+builds a portable site, exercises a formula-revision upgrade, and uninstalls it
+on disposable GitHub runners. It does not create provider deployments.
+
+The binary's licensing is governed by the Zellij product, not by Homebrew.
+No open-source licensing grant is implied by this public distribution tap.
