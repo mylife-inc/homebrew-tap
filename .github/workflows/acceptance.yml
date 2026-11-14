@@ -5,6 +5,11 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      upgrade_from_commit:
+        description: Optional previous tap commit for a real CLI upgrade (before retirement)
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -31,6 +36,35 @@ jobs:
       - uses: Homebrew/actions/setup-homebrew@1f8e202ffddf94def7f42f6fa3a482e821489f9c # 2026.07.10.1
         with:
           stable: true
+      - name: Upgrade an actual previous CLI release
+        if: inputs.upgrade_from_commit != ''
+        shell: bash
+        env:
+          PREVIOUS_COMMIT: ${{ inputs.upgrade_from_commit }}
+        run: |
+          set -euo pipefail
+          [[ "$PREVIOUS_COMMIT" =~ ^[a-f0-9]{40}$ ]]
+          git fetch --no-tags origin "$PREVIOUS_COMMIT"
+          test "$(git rev-parse FETCH_HEAD)" = "$PREVIOUS_COMMIT"
+          current_recipe="$(mktemp)"
+          cp Formula/zel.rb "$current_recipe"
+          trap 'cp "$current_recipe" Formula/zel.rb; rm -f "$current_recipe"' EXIT
+          version_of() { sed -n 's/^  version "\([0-9A-Za-z.-]*\)"$/\1/p' "$1"; }
+          current_version="$(version_of "$current_recipe")"
+          git show "$PREVIOUS_COMMIT:Formula/zel.rb" > Formula/zel.rb
+          previous_version="$(version_of Formula/zel.rb)"
+          test -n "$current_version" && test -n "$previous_version"
+          test "$previous_version" != "$current_version"
+          brew install mylife-inc/tap/zel
+          prefix="$(brew --prefix mylife-inc/tap/zel)"
+          test "$("$prefix/bin/zel" --version)" = "zel $previous_version"
+          brew test mylife-inc/tap/zel
+          cp "$current_recipe" Formula/zel.rb
+          brew upgrade mylife-inc/tap/zel
+          prefix="$(brew --prefix mylife-inc/tap/zel)"
+          test "$("$prefix/bin/zel" --version)" = "zel $current_version"
+          brew test mylife-inc/tap/zel
+          echo "Verified actual CLI upgrade: $previous_version to $current_version"
       - name: Install the public archive and verify the formula
         shell: bash
         run: |

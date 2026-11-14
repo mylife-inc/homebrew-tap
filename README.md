@@ -6,9 +6,9 @@ Install **zel**, the Zellij documentation and product website CLI by **Shebka**:
 brew install mylife-inc/tap/zel
 ```
 
-This tap currently supplies **0.2.0-rc.6**, a development preview. It supports
+This tap currently supplies **0.2.0-rc.7**, a development preview. It supports
 Apple Silicon and Intel Macs, and ARM64 and x86-64 Linux with glibc. The formula
-uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.6).
+uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.7).
 Zellij is the website engine; it is unrelated to the terminal multiplexer with
 the same name. `mylife-inc` is Shebka's existing GitHub account.
 
@@ -23,7 +23,7 @@ Edit Markdown in `my-docs/content/` and configure the site in `my-docs/zel.yaml`
 Open `my-docs/site/index.html` directly, or use `zel serve my-docs` for an HTTP
 preview. Portable web-only builds do not need Docker or Node.js. Hosted builds require a
 supported container runtime and default to the engine image matching the CLI
-version (`ghcr.io/mylife-inc/zellij-base:0.2.0-rc.6`).
+version (`ghcr.io/mylife-inc/zellij-base:0.2.0-rc.7`).
 
 `zel templates` lists the bundled, versioned starters. For a reading-oriented
 book, use `zel create my-book -t book-classic`. For a hosted product landing
@@ -73,3 +73,9 @@ on disposable GitHub runners. It does not create provider deployments.
 
 The binary's licensing is governed by the Zellij product, not by Homebrew.
 No open-source licensing grant is implied by this public distribution tap.
+
+Before retiring a prior preview, dispatch acceptance with `upgrade_from_commit`
+set to its full tap commit SHA. This additionally installs the old public CLI,
+upgrades to the current formula and checks both versions and portable builds.
+Leave the input empty after retirement; ordinary lifecycle checks do not require
+old downloads.

@@ -2,28 +2,28 @@
 class Zel < Formula
   desc "Build portable documentation and product websites with Zellij"
   homepage "https://zellij.shebka.net"
-  version "0.2.0-rc.6"
+  version "0.2.0-rc.7"
   license :cannot_represent
 
   on_macos do
     on_arm do
-      url "https://github.com/mylife-inc/releases/releases/download/zellij-v0.2.0-rc.6/zel-v0.2.0-rc.6-aarch64-apple-darwin.tar.gz"
-      sha256 "5d01e10fcbecdde442370d7a0ce34ff6b069a7df44abbdca5d6fde5f514c51f7"
+      url "https://github.com/mylife-inc/releases/releases/download/zellij-v0.2.0-rc.7/zel-v0.2.0-rc.7-aarch64-apple-darwin.tar.gz"
+      sha256 "88d7f2f7859fca65927220d74bfa16dc2f5f3c542ee8c2d3eeafdc3ad7c3fa19"
     end
     on_intel do
-      url "https://github.com/mylife-inc/releases/releases/download/zellij-v0.2.0-rc.6/zel-v0.2.0-rc.6-x86_64-apple-darwin.tar.gz"
-      sha256 "71ba5f94099573c007040921ad1336641e7b3528571b0df681b0487f3860656a"
+      url "https://github.com/mylife-inc/releases/releases/download/zellij-v0.2.0-rc.7/zel-v0.2.0-rc.7-x86_64-apple-darwin.tar.gz"
+      sha256 "58fc98f02d0eccf17d1169403274415e3e065d31c90a747dd570cadac933ed09"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/mylife-inc/releases/releases/download/zellij-v0.2.0-rc.6/zel-v0.2.0-rc.6-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "50d34993b5ce150fde122caac8c35c2bb01e64a4831cf43de6ac106f93e1cfe2"
+      url "https://github.com/mylife-inc/releases/releases/download/zellij-v0.2.0-rc.7/zel-v0.2.0-rc.7-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "bc8d58b38190ca8daa4d37d92d313acc314c8a77c6276e3e31d12acff498107d"
     end
     on_intel do
-      url "https://github.com/mylife-inc/releases/releases/download/zellij-v0.2.0-rc.6/zel-v0.2.0-rc.6-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "36ef1d6a2b562b739c77099f29adf0bce7ea110627073d3c83ec64b8d2039a83"
+      url "https://github.com/mylife-inc/releases/releases/download/zellij-v0.2.0-rc.7/zel-v0.2.0-rc.7-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "eac0d5239a2ad68b6cb6e013b79f18c984e8ceed1551bdfc5878a4c4412bc16e"
     end
   end
 
@@ -40,11 +40,11 @@ class Zel < Formula
 
   def caveats
     <<~EOS
-      This installs development preview 0.2.0-rc.6.
+      This installs development preview 0.2.0-rc.7.
       Update with: brew upgrade mylife-inc/tap/zel
       Portable Markdown builds need no container runtime.
       Hosted builds use the matching engine image:
-        export ZELLIJ_IMAGE=ghcr.io/mylife-inc/zellij-base:0.2.0-rc.6
+        export ZELLIJ_IMAGE=ghcr.io/mylife-inc/zellij-base:0.2.0-rc.7
     EOS
   end
 
