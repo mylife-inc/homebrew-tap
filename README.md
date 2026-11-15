@@ -6,9 +6,9 @@ Install **zel**, the Zellij documentation and product website CLI by **Shebka**:
 brew install mylife-inc/tap/zel
 ```
 
-This tap currently supplies **0.2.0-rc.7**, a development preview. It supports
+This tap currently supplies **0.2.0-rc.8**, a development preview. It supports
 Apple Silicon and Intel Macs, and ARM64 and x86-64 Linux with glibc. The formula
-uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.7).
+uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.8).
 Zellij is the website engine; it is unrelated to the terminal multiplexer with
 the same name. `mylife-inc` is Shebka's existing GitHub account.
 
@@ -23,7 +23,7 @@ Edit Markdown in `my-docs/content/` and configure the site in `my-docs/zel.yaml`
 Open `my-docs/site/index.html` directly, or use `zel serve my-docs` for an HTTP
 preview. Portable web-only builds do not need Docker or Node.js. Hosted builds require a
 supported container runtime and default to the engine image matching the CLI
-version (`ghcr.io/mylife-inc/zellij-base:0.2.0-rc.7`).
+version (`ghcr.io/mylife-inc/zellij-base:0.2.0-rc.8`).
 
 `zel templates` lists the bundled, versioned starters. For a reading-oriented
 book, use `zel create my-book -t book-classic`. For a hosted product landing
@@ -31,8 +31,12 @@ page, use `zel create my-site -t product-studio`. Creation works offline and
 protects existing files. Book-classic 0.2.0 includes a cover, preface, part,
 chapters and appendix. `zel build my-book --pdf` adds a matching PDF and download
 link using the optional LuaLaTeX toolchain in Docker, Podman or nerdctl. PDF is off by default;
-`zel pdf my-book --check` validates compatibility without a runtime. The first
-print design is English/LTR; advanced publishing formats remain planned.
+`zel pdf my-book --check` validates compatibility without a runtime. The three
+print editions support English/LTR. Use `book-technical` for mathematics and
+proofs or `book-study` for passages and commentary. With `pdf.enabled: true`,
+`zel ni` also includes the matching PDF in a Next.js image. The LaTeX toolchain
+stays outside the serving image. Multilingual print and further customization
+remain planned.
 
 The formula installs Bash, Zsh and Fish completions. Shell setup follows
 [Homebrew's completion instructions](https://docs.brew.sh/Shell-Completion).
