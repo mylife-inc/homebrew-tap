@@ -6,9 +6,9 @@ Install **zel**, the Zellij documentation and product website CLI by **Shebka**:
 brew install mylife-inc/tap/zel
 ```
 
-This tap currently supplies **0.2.0-rc.10**, a development preview. It supports
+This tap currently supplies **0.2.0-rc.11**, a development preview. It supports
 Apple Silicon and Intel Macs, and ARM64 and x86-64 Linux with glibc. The formula
-uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.10).
+uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.11).
 Zellij is the website engine; it is unrelated to the terminal multiplexer with
 the same name. `mylife-inc` is Shebka's existing GitHub account.
 
@@ -23,7 +23,7 @@ Edit Markdown in `my-docs/content/` and configure the site in `my-docs/zel.yaml`
 Open `my-docs/site/index.html` directly, or use `zel serve my-docs` for an HTTP
 preview. Portable web-only builds do not need Docker or Node.js. Hosted builds require a
 supported container runtime and default to the engine image matching the CLI
-version (`ghcr.io/mylife-inc/zellij-base:0.2.0-rc.10`).
+version (`ghcr.io/mylife-inc/zellij-base:0.2.0-rc.11`).
 
 `zel templates` lists the bundled, versioned starters. For a reading-oriented
 book, use `zel create my-book -t book-classic`. For a hosted product landing
@@ -37,12 +37,18 @@ proofs or `book-study` for passages and commentary. With `pdf.enabled: true`,
 `zel ni` also includes the matching PDF in a Next.js image. The LaTeX toolchain
 stays outside the serving image. `pdf.style` controls colors, fonts, chapter
 openings, spacing and margins; pinned Amiri/Libertinus fonts are included.
-`zel create my-api -t api-platform` uses the new light/dark Kie theme. The catalog
+`zel create my-api -t api-platform` uses the light/dark Kie theme. The catalog
 contains nine starters.
 
 The formula installs Bash, Zsh and Fish completions. Shell setup follows
 [Homebrew's completion instructions](https://docs.brew.sh/Shell-Completion).
 Run `zel --help` for commands, and `zel explain` for the embedded content model.
+
+The hosted section composer now includes video, layered layouts, semantic
+content, product selectors, scroll stories and reuse of eight built-in sections.
+Run `zel presets` to list nine editable section presets, or create one with
+`zel ns -p product-overview --out content/sections/overview.yaml`.
+These features require the matching rc.11 engine for hosted builds.
 
 ## Update or remove
 
