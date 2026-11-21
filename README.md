@@ -6,9 +6,9 @@ Install **zel**, the Zellij documentation and product website CLI by **Shebka**:
 brew install mylife-inc/tap/zel
 ```
 
-This tap currently supplies **0.2.0-rc.15**, a development preview. It supports
+This tap currently supplies **0.2.0-rc.16**, a development preview. It supports
 Apple Silicon and Intel Macs, and ARM64 and x86-64 Linux with glibc. The formula
-uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.15).
+uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.16).
 Zellij is the website engine; it is unrelated to the terminal multiplexer with
 the same name. `mylife-inc` is Shebka's existing GitHub account.
 
