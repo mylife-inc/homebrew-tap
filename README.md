@@ -6,9 +6,9 @@ Install **zel**, the Zellij documentation and product website CLI by **Shebka**:
 brew install mylife-inc/tap/zel
 ```
 
-This tap currently supplies **0.2.0-rc.17**, a development preview. It supports
+This tap currently supplies **0.2.0-rc.18**, a development preview. It supports
 Apple Silicon and Intel Macs, and ARM64 and x86-64 Linux with glibc. The formula
-uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.17).
+uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.18).
 Zellij is the website engine; it is unrelated to the terminal multiplexer with
 the same name. `mylife-inc` is Shebka's existing GitHub account.
 
@@ -24,14 +24,14 @@ Open `my-docs/site/index.html` directly, or use `zel serve my-docs` for an HTTP
 preview. Portable web-only builds run entirely inside the native CLI. Rich builds
 download a matching renderer once, then reuse it from the cache. Neither needs
 separately installed Docker, Node.js, npm or Python. Use `zel build my-docs --offline`
-after the renderer is cached. Explicit static/image builds, hosted `dev` and optional
-PDF generation retain their documented container prerequisites.
+after the renderer is cached. Rich `--target static` builds share the cache for HTTP hosting. Image builds,
+hosted Next `dev` and optional PDF generation retain their documented container prerequisites.
 
 
 Rich `zel check`, `zel watch` and `zel view --watch` also use the cached renderer
 without separately installed tools. The first rich operation downloads it;
-`--offline` reuses the verified cache. Use `--target static` explicitly for the
-container/Next path. Validation reports source errors without executing authored
+`--offline` reuses the verified cache for both `file` and `static` targets.
+Static deployment builds and optional import validation also use that cache. Validation reports source errors without executing authored
 MDX; live preview retains the last successful site after an invalid edit.
 
 `zel templates` lists the bundled, versioned starters. For a reading-oriented
