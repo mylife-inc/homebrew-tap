@@ -6,9 +6,9 @@ Install **zel**, the Zellij documentation and product website CLI by **Shebka**:
 brew install mylife-inc/tap/zel
 ```
 
-This tap currently supplies **0.2.0-rc.19**, a development preview. It supports
+This tap currently supplies **0.2.0-rc.20**, a development preview. It supports
 Apple Silicon and Intel Macs, and ARM64 and x86-64 Linux with glibc. The formula
-uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.19).
+uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.20).
 Zellij is the website engine; it is unrelated to the terminal multiplexer with
 the same name. `mylife-inc` is Shebka's existing GitHub account.
 
@@ -25,7 +25,13 @@ preview. Portable web-only builds run entirely inside the native CLI. Rich build
 download a matching renderer once, then reuse it from the cache. Neither needs
 separately installed Docker, Node.js, npm or Python. Use `zel build my-docs --offline`
 after the renderer is cached. Rich `--target static` builds share the cache for HTTP hosting. Image builds,
-hosted Next `dev` and optional PDF generation retain their documented container prerequisites.
+hosted Next `dev` and the default `container` PDF backend retain their documented container prerequisites.
+Use `zel pdf my-book --pdf-backend cached` or
+`zel build my-book --pdf --pdf-backend cached` for PDF generation without
+installed Docker, Node.js, Python or TeX. The optional compiler is about 12 MB
+and reuses the renderer's private Node; subsequent runs support `--offline`.
+Its matching sources are separate release downloads. Cached PDF stays opt-in
+in rc.20 and preserves the documented print-content limits.
 
 Default `zel eject` and `zel new app` also need only `zel` to create editable
 Next.js wrappers. A separate version-matched source archive is downloaded into
@@ -44,7 +50,8 @@ book, use `zel create my-book -t book-classic`. For a hosted product landing
 page, use `zel create my-site -t product-studio`. Creation works offline and
 protects existing files. Book-classic 0.2.0 includes a cover, preface, part,
 chapters and appendix. `zel build my-book --pdf` adds a matching PDF and download
-link using the optional LuaLaTeX toolchain in Docker, Podman or nerdctl. PDF is off by default;
+link using the optional LuaLaTeX toolchain. Add `--pdf-backend cached` for
+the downloaded compiler; the default backend uses Docker, Podman or nerdctl. PDF is off by default;
 `zel pdf my-book --check` validates compatibility without a runtime. The three
 print editions support English, French, German and Spanish LTR and Arabic RTL. Use `book-technical` for mathematics and
 proofs or `book-study` for passages and commentary. With `pdf.enabled: true`,
@@ -65,7 +72,7 @@ Run `zel presets` to list nine editable section presets, or create one with
 Rich builds use the automatically downloaded matching renderer. Container commands
 use the matching versioned engine image.
 
-Homebrew keeps the executable in its managed Cellar/prefix. Zellij downloads use `ZELLIJ_HOME`, defaulting to `~/Dev/config/zellij`: renderer packages live under `cache/engines`, remote templates under `cache/templates`, and editable sources under `cache/sources`. Set an absolute `ZELLIJ_HOME` to change that resource root. Standalone installers use its `bin` directory; Homebrew installation paths stay managed by Homebrew. Existing caches are not silently moved.
+Homebrew keeps the executable in its managed Cellar/prefix. Zellij downloads use `ZELLIJ_HOME`, defaulting to `~/Dev/config/zellij`: renderer packages live under `cache/engines`, remote templates under `cache/templates`, editable sources under `cache/sources`, and PDF compilers under `cache/pdf`. Set an absolute `ZELLIJ_HOME` to change that resource root. Standalone installers use its `bin` directory; Homebrew installation paths stay managed by Homebrew. Existing caches are not silently moved.
 
 ## Update or remove
 
