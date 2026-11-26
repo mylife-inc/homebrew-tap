@@ -6,9 +6,9 @@ Install **zel**, the Zellij documentation and product website CLI by **Shebka**:
 brew install mylife-inc/tap/zel
 ```
 
-This tap currently supplies **0.2.0-rc.21**, a development preview. It supports
+This tap currently supplies **0.2.0-rc.24**, a development preview. It supports
 Apple Silicon and Intel Macs, and ARM64 and x86-64 Linux with glibc. The formula
-uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.21).
+uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.24).
 Zellij is the website engine; it is unrelated to the terminal multiplexer with
 the same name. `mylife-inc` is Shebka's existing GitHub account.
 
@@ -24,15 +24,22 @@ Open `my-docs/site/index.html` directly, or use `zel serve my-docs` for an HTTP
 preview. Portable web-only builds run entirely inside the native CLI. Rich builds
 download a matching renderer once, then reuse it from the cache. Neither needs
 separately installed Docker, Node.js, npm or Python. Use `zel build my-docs --offline`
-after the renderer is cached. Rich `--target static` builds share the cache for HTTP hosting. Image builds,
-hosted Next `dev` and explicit `--pdf-backend container` retain their documented container prerequisites.
+after the renderer is cached. Rich `--target static` builds share the cache for HTTP hosting. Image builds and explicitly selected container development/PDF retain their container prerequisites.
 Use `zel pdf my-book` for PDF only, or `zel bp my-book` for a website with a
-PDF download. Rc.21 uses the verified cached compiler by default, without installed
+PDF download. PDF uses the verified cached compiler by default, without installed
 Docker, Node.js, Python or TeX. The optional compiler is about 12 MB and reuses
 the renderer's private Node; subsequent runs support `--offline`. Its matching
 sources remain separate release downloads. PDF generation stays optional and
 preserves the documented print-content limits. `zel bs` builds an HTTP static
 site, `zel vw` previews and rebuilds edits, and `zel lint` runs deep/strict checks.
+
+For the standard hosted wrapper, `zel dev my-site --open` downloads optional
+verified development dependencies and reuses private Node and source packages.
+No separately installed Docker, Node.js, npm or Python is needed.
+`zel dev my-site --offline --open` reuses those packages after the first download.
+Stopping removes the temporary session; downloaded packages remain cached.
+`zel vw` is the lighter watched static-preview workflow. Custom Next apps keep
+their own toolchain requirements.
 
 Default `zel eject` and `zel new app` also need only `zel` to create editable
 Next.js wrappers. A separate version-matched source archive is downloaded into
@@ -73,7 +80,7 @@ Run `zel presets` to list nine editable section presets, or create one with
 Rich builds use the automatically downloaded matching renderer. Container commands
 use the matching versioned engine image.
 
-Homebrew keeps the executable in its managed Cellar/prefix. Zellij downloads use `ZELLIJ_HOME`, defaulting to `~/Dev/config/zellij`: renderer packages live under `cache/engines`, remote templates under `cache/templates`, editable sources under `cache/sources`, and PDF compilers under `cache/pdf`. Set an absolute `ZELLIJ_HOME` to change that resource root. Standalone installers use its `bin` directory; Homebrew installation paths stay managed by Homebrew. Existing caches are not silently moved.
+Homebrew keeps the executable in its managed Cellar/prefix. Zellij downloads use `ZELLIJ_HOME`, defaulting to `~/Dev/config/zellij`: renderer packages live under `cache/engines`, remote templates under `cache/templates`, editable sources under `cache/sources`, development dependencies under `cache/development`, and PDF compilers under `cache/pdf`. Set an absolute `ZELLIJ_HOME` to change that resource root. Standalone installers use its `bin` directory; Homebrew installation paths stay managed by Homebrew. Existing caches are not silently moved.
 
 ## Update or remove
 
