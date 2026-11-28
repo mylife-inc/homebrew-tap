@@ -6,9 +6,9 @@ Install **zel**, the Zellij documentation and product website CLI by **Shebka**:
 brew install mylife-inc/tap/zel
 ```
 
-This tap currently supplies **0.2.0-rc.24**, a development preview. It supports
+This tap currently supplies **0.2.0-rc.25**, a development preview. It supports
 Apple Silicon and Intel Macs, and ARM64 and x86-64 Linux with glibc. The formula
-uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.24).
+uses the checksummed native binaries from our [public release mirror](https://github.com/mylife-inc/releases/releases/tag/zellij-v0.2.0-rc.25).
 Zellij is the website engine; it is unrelated to the terminal multiplexer with
 the same name. `mylife-inc` is Shebka's existing GitHub account.
 
@@ -81,6 +81,10 @@ Rich builds use the automatically downloaded matching renderer. Container comman
 use the matching versioned engine image.
 
 Homebrew keeps the executable in its managed Cellar/prefix. Zellij downloads use `ZELLIJ_HOME`, defaulting to `~/Dev/config/zellij`: renderer packages live under `cache/engines`, remote templates under `cache/templates`, editable sources under `cache/sources`, development dependencies under `cache/development`, and PDF compilers under `cache/pdf`. Set an absolute `ZELLIJ_HOME` to change that resource root. Standalone installers use its `bin` directory; Homebrew installation paths stay managed by Homebrew. Existing caches are not silently moved.
+
+Rc.25 fixes keyboard focus loss when desktop navigation changes during rapid
+resizing. Rebuild an existing website with this version to include the corrected
+renderer.
 
 ## Update or remove
 
